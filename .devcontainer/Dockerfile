@@ -1,0 +1,21 @@
+FROM node:22
+
+# Install basic development tools
+RUN apt update && apt install -y less man-db sudo
+
+# Install chromium for testing
+RUN apt update && install -y wget && \
+    wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    apt update && apt install -y ./google-chrome-stable_current_amd64.deb && \
+    rm ./google-chrome-stable_current_amd64.deb
+
+# Ensure default `node` user has access to `sudo`
+ARG USERNAME=node
+RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+    && chmod 0440 /etc/sudoers.d/$USERNAME
+
+# Install nx globally
+RUN add-apt-repository ppa:nrwl/nx && apt update && apt install nx
+
+# Set `DEVCONTAINER` environment variable to help with orientation
+ENV DEVCONTAINER=true

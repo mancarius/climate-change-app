@@ -1,0 +1,54 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": [
+      "es2020",
+      "dom"
+    ],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@co2/*": [
+        "./apps/co2/src/*"
+      ],
+      "@core/*": [
+        "./libs/core/src/lib/*"
+      ],
+      "@ui/*": [
+        "./libs/ui/src/lib/*"
+      ],
+      "@ice/*": [
+        "./apps/ice/src/*"
+      ],
+      "@methane/*": [
+        "./apps/methane/src/*"
+      ],
+      "@no2/*": [
+        "./apps/no2/src/*"
+      ],
+      "@shell/*": [
+        "./apps/shell/src/*"
+      ],
+      "@temperature/*": [
+        "./apps/temperature/src/*"
+      ],
+      "@utils/*": [
+        "./libs/utils/src/lib/*"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
+}

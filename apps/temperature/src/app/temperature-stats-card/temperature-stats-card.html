@@ -1,0 +1,10 @@
+<div class="stats-card">
+  @if (stats(); as s) {
+    <p>
+      Media Stazione: {{ s.stationAvg }}°C<br />
+      Media Terraferma: {{ s.landAvg }}°C
+    </p>
+  } @else {
+    <p>Nessun dato disponibile</p>
+  }
+</div>
