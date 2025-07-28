@@ -12,5 +12,8 @@
 		4203,
 		4204,
 		4205
-	]
+	],
+	"remoteEnv": {
+		"CHOKIDAR_USEPOLLING": "true"
+	}
 }

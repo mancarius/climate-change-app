@@ -4,7 +4,10 @@
   "projectType": "application",
   "prefix": "app",
   "sourceRoot": "apps/methane/src",
-  "tags": ["type:app", "scope:methane"],
+  "tags": [
+    "type:app",
+    "scope:methane"
+  ],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
@@ -57,7 +60,9 @@
       "continuous": true,
       "executor": "@angular/build:dev-server",
       "options": {
-        "port": 4203
+        "port": 4203,
+        "host": "0.0.0.0",
+        "poll": 2000
       },
       "configurations": {
         "production": {
