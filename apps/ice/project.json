@@ -4,15 +4,22 @@
   "projectType": "application",
   "prefix": "app",
   "sourceRoot": "apps/ice/src",
-  "tags": [],
+  "tags": [
+    "type:app",
+    "scope:ice"
+  ],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/ice",
         "browser": "apps/ice/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/ice/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -21,7 +28,9 @@
             "input": "apps/ice/public"
           }
         ],
-        "styles": ["apps/ice/src/styles.scss"]
+        "styles": [
+          "apps/ice/src/styles.scss"
+        ]
       },
       "configurations": {
         "production": {
@@ -50,6 +59,9 @@
     "serve": {
       "continuous": true,
       "executor": "@angular/build:dev-server",
+      "options": {
+        "port": 4202
+      },
       "configurations": {
         "production": {
           "buildTarget": "ice:build:production"
@@ -71,7 +83,9 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["{options.reportsDirectory}"],
+      "outputs": [
+        "{options.reportsDirectory}"
+      ],
       "options": {
         "reportsDirectory": "../../coverage/apps/ice"
       }
@@ -81,7 +95,7 @@
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "ice:build",
-        "port": 4200,
+        "port": 4202,
         "staticFilePath": "dist/apps/ice/browser",
         "spa": true
       }

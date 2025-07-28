@@ -4,15 +4,22 @@
   "projectType": "application",
   "prefix": "app",
   "sourceRoot": "apps/co2/src",
-  "tags": [],
+  "tags": [
+    "type:app",
+    "scope:co2"
+  ],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/co2",
         "browser": "apps/co2/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/co2/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -21,7 +28,9 @@
             "input": "apps/co2/public"
           }
         ],
-        "styles": ["apps/co2/src/styles.scss"]
+        "styles": [
+          "apps/co2/src/styles.scss"
+        ]
       },
       "configurations": {
         "production": {
@@ -50,6 +59,9 @@
     "serve": {
       "continuous": true,
       "executor": "@angular/build:dev-server",
+      "options": {
+        "port": 4201
+      },
       "configurations": {
         "production": {
           "buildTarget": "co2:build:production"
@@ -71,7 +83,9 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["{options.reportsDirectory}"],
+      "outputs": [
+        "{options.reportsDirectory}"
+      ],
       "options": {
         "reportsDirectory": "../../coverage/apps/co2"
       }
@@ -81,7 +95,7 @@
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "co2:build",
-        "port": 4200,
+        "port": 4201,
         "staticFilePath": "dist/apps/co2/browser",
         "spa": true
       }

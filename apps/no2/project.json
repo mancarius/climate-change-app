@@ -4,15 +4,22 @@
   "projectType": "application",
   "prefix": "app",
   "sourceRoot": "apps/no2/src",
-  "tags": [],
+  "tags": [
+    "type:app",
+    "scope:no2"
+  ],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/no2",
         "browser": "apps/no2/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/no2/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -21,7 +28,9 @@
             "input": "apps/no2/public"
           }
         ],
-        "styles": ["apps/no2/src/styles.scss"]
+        "styles": [
+          "apps/no2/src/styles.scss"
+        ]
       },
       "configurations": {
         "production": {
@@ -50,6 +59,9 @@
     "serve": {
       "continuous": true,
       "executor": "@angular/build:dev-server",
+      "options": {
+        "port": 4204
+      },
       "configurations": {
         "production": {
           "buildTarget": "no2:build:production"
@@ -71,7 +83,9 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["{options.reportsDirectory}"],
+      "outputs": [
+        "{options.reportsDirectory}"
+      ],
       "options": {
         "reportsDirectory": "../../coverage/apps/no2"
       }
@@ -81,7 +95,7 @@
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "no2:build",
-        "port": 4200,
+        "port": 4204,
         "staticFilePath": "dist/apps/no2/browser",
         "spa": true
       }

@@ -4,15 +4,19 @@
   "projectType": "application",
   "prefix": "app",
   "sourceRoot": "apps/methane/src",
-  "tags": [],
+  "tags": ["type:app", "scope:methane"],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/methane",
         "browser": "apps/methane/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/methane/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -21,7 +25,9 @@
             "input": "apps/methane/public"
           }
         ],
-        "styles": ["apps/methane/src/styles.scss"]
+        "styles": [
+          "apps/methane/src/styles.scss"
+        ]
       },
       "configurations": {
         "production": {
@@ -50,6 +56,9 @@
     "serve": {
       "continuous": true,
       "executor": "@angular/build:dev-server",
+      "options": {
+        "port": 4203
+      },
       "configurations": {
         "production": {
           "buildTarget": "methane:build:production"
@@ -71,7 +80,9 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["{options.reportsDirectory}"],
+      "outputs": [
+        "{options.reportsDirectory}"
+      ],
       "options": {
         "reportsDirectory": "../../coverage/apps/methane"
       }
@@ -81,7 +92,7 @@
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "methane:build",
-        "port": 4200,
+        "port": 4203,
         "staticFilePath": "dist/apps/methane/browser",
         "spa": true
       }
