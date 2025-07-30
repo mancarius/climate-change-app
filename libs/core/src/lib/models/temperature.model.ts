@@ -1,10 +1,10 @@
 import z from "zod";
 
 // Definizione dello schema dei dati con zod
-export const temperatureDataSchema = z.object({
+export const temperatureSchema = z.object({
   time: z.string(),
-  station: z.number().transform((val) => parseFloat(val.toFixed(2))),
-  land: z.number().transform((val) => parseFloat(val.toFixed(2))),
+  station: z.string().transform((val) => parseFloat(Number(val).toFixed(2))),
+  land: z.string().transform((val) => parseFloat(Number(val).toFixed(2))),
 });
 
 
@@ -15,4 +15,4 @@ export const temperatureDataSchema = z.object({
  * The anomaly is the difference from the average temperature for that month.
  * The uncertainty is the margin of error for the anomaly value.
  */
-export type TemperatureData = z.infer<typeof temperatureDataSchema>;
+export type Temperature = z.infer<typeof temperatureSchema>;
