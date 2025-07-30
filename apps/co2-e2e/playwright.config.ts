@@ -25,7 +25,7 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: {
     command: 'npx nx run co2:serve',
-    url: 'http://localhost:4200',
+    url: 'http://0.0.0.0:4201',
     reuseExistingServer: true,
     cwd: workspaceRoot,
   },
