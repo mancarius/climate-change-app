@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { TemperatureData } from '@core/models';
+import { Temperature } from '@core/models';
 
 @Component({
   selector: 'app-temperature-filters',
@@ -9,5 +9,5 @@ import { TemperatureData } from '@core/models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TemperatureFilters {
-  readonly data = input.required<TemperatureData[]>();
+  readonly data = input.required<Temperature[]>();
 }

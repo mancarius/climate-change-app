@@ -2,7 +2,7 @@
  * Componente per visualizzare i dati delle anomalie di temperatura in un grafico.
  */
 import { Component, ChangeDetectionStrategy, input } from '@angular/core';
-import { TemperatureData } from '@core/models';
+import { Temperature } from '@core/models';
 
 @Component({
   selector: 'app-temperature-chart',
@@ -14,5 +14,5 @@ export class TemperatureChart {
   /**
    * Dati delle temperature da visualizzare nel grafico.
    */
-  readonly data = input.required<TemperatureData[]>();
+  readonly data = input.required<Temperature[]>();
 }

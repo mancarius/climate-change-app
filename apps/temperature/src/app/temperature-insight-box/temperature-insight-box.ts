@@ -2,7 +2,7 @@
  * Componente per fornire insight basati sui dati delle anomalie di temperatura.
  */
 import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
-import { TemperatureData } from '@core/models';
+import { Temperature } from '@core/models';
 
 @Component({
   selector: 'app-temperature-insight-box',
@@ -11,7 +11,7 @@ import { TemperatureData } from '@core/models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TemperatureInsightBox {
-  readonly data = input.required<TemperatureData[]>();
+  readonly data = input.required<Temperature[]>();
 
   readonly insights = computed(() => {
     const data = this.data();
