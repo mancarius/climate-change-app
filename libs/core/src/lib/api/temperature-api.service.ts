@@ -1,12 +1,6 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { httpResource } from '@angular/common/http';
-import { z } from 'zod';
-import { TemperatureData, temperatureDataSchema } from '../models/temperature-data.model';
-
-const temperatureDataResponseSchema = z.object({
-  error: z.unknown().nullable(),
-  result: z.array(temperatureDataSchema),
-});
+import { ApiResponse, Temperature } from '../models';
 
 /**
  * Service to fetch temperature data from the API.
@@ -17,12 +11,11 @@ export class TemperatureApiService {
   private readonly _resourceUrl = '/api/temperature';
   private readonly _resourceUrlSignal = signal(undefined as string | undefined);
 
-  private readonly _temperatureResource = httpResource(
-    () => this._resourceUrlSignal(),
-    { parse: temperatureDataResponseSchema.parse }
+  private readonly _temperatureResource = httpResource<ApiResponse<Temperature>>(
+    () => this._resourceUrlSignal()
   );
 
-  readonly temperatures = computed<TemperatureData[]>(() => {
+  readonly temperatures = computed<Temperature[]>(() => {
     const hasValue = this._temperatureResource.hasValue();
     const value = this._temperatureResource.value();
     return hasValue ? value?.result ?? [] : [];
