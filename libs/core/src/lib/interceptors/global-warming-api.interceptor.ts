@@ -1,37 +1,47 @@
-import { HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import { HttpInterceptorFn, HttpResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { GLOBAL_WARMING_API_URL } from '../config/global-warming-api.provider';
+import { API_STRATEGIES, GLOBAL_WARMING_API_URL } from '../config/global-warming-api.provider';
+import { map } from 'rxjs';
+import { ApiStrategy } from '../models';
 
-const PATH_MAP: { [key: string]: string } = {
-  temperature: 'temperature-api',
-  co2: 'co2-api',
-  methane: 'methane-api',
-  no2: 'nitrous-oxide-api',
-  arctic: 'arctic-api'
-};
-
+/**
+ * Interceptor to modify requests for the Global Warming API.
+ */
 export const globalWarmingApiInterceptor: HttpInterceptorFn = (req, next) => {
-  const globalWarmingApiBaseUrl = inject(GLOBAL_WARMING_API_URL)
+  const globalWarmingApiBaseUrl = inject(GLOBAL_WARMING_API_URL);
+  const strategies = inject(API_STRATEGIES);
+  let strategy: ApiStrategy | undefined;
 
-  if (isGlobalWarmingApiCall(req)) {
-    // Modify the request URL to point to the global warming API
-    const newUrl = `https://${globalWarmingApiBaseUrl}/${getNewPath(req)}`;
-    req = req.clone({ url: newUrl });
+  const pathSlices = req.url.split('/').filter(Boolean);
+  if (pathSlices[0] === 'api' && pathSlices.length === 2) {
+    const pathDomain = pathSlices[1];
+    strategy = strategies.find((s) => s.matches(pathDomain));
+
+    if (strategy) {
+      const newUrl = strategy.getUrl(globalWarmingApiBaseUrl);
+      req = req.clone({ url: newUrl });
+    }
   }
-  return next(req);
-};
 
-
-function isGlobalWarmingApiCall(req: HttpRequest<unknown>): boolean {
-  const pathSlices = req.url.split('/');
-  return pathSlices[0] === 'api' && pathSlices.length === 2 && Object.prototype.hasOwnProperty.call(PATH_MAP, pathSlices[1]);
+  return next(req).pipe(
+    map(response => response instanceof HttpResponse
+      ? parseResponse(response, strategy)
+      : response
+    )
+  );
 }
 
-function getNewPath(req: HttpRequest<unknown>): string {
-  const pathSlices = req.url.split('/');
-  const pathDomain = pathSlices[1];
-  if (pathDomain in PATH_MAP) {
-    return PATH_MAP[pathDomain];
+/**
+ * Parses the response based on the strategy's parseResponse method.
+ * @param response - The HTTP response to parse.
+ * @param strategy - The API strategy to use for parsing.
+ * @returns The modified response with parsed body if applicable.
+ */
+function parseResponse(response: HttpResponse<unknown>, strategy?: ApiStrategy) {
+  if (strategy && strategy.parseResponse) {
+    return response.clone({
+      body: strategy.parseResponse(response.body)
+    });
   }
-  return '';
+  return response;
 }
